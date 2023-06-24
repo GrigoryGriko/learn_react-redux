@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
   const dispatch = useDispatch()
-  const cash = useSelector(state => state.cash)
+  const cash = useSelector(state => state.cash.cash)
   
   const addCash = (cash) => {
     cash = isNaN(cash) ? 0 : cash;
