@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCustomerAction, removeCustomerAction } from './store/customersReducer';
+import { addCashAction, getCashAction } from './store/cashReducer';
 
 function App() {
   const dispatch = useDispatch()
@@ -10,13 +11,13 @@ function App() {
   const addCash = (cash) => {
     cash = isNaN(cash) ? 0 : cash;
 
-    dispatch({type: 'ADD_CASH', payload: cash})
+    dispatch(addCashAction(cash))
   }
 
   const getCash = (cash) => {
     cash = isNaN(cash) ? 0 : cash;
     
-    dispatch({type: 'GET_CASH', payload: cash})
+    dispatch(getCashAction(cash))
   }
 
   const addCustomer = (name) => {
@@ -45,7 +46,8 @@ function App() {
       {customers.length > 0 ?
         <div>
           {customers.map(customer =>
-            <div 
+            <div
+              key={customer.id}
               style={{
                 fontSize: "2rem", 
                 border: "1px solid #000", 
