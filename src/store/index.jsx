@@ -15,4 +15,7 @@ export const store = configureStore({
   enhancers: [applyMiddleware(thunk)],
 });
 
-/*composeWithDevTools()*/
+/*export const store = configureStore({
+  reducer: rootReducer,
+  enhancers: [composeWithDevTools(applyMiddleware(thunk))],
+});*/
