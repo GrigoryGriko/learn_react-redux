@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 function App() {
   const dispatch = useDispatch()
   const cash = useSelector(state => state.cash.cash)
+  const customers = useSelector(state => state.customers.customers)
   
   const addCash = (cash) => {
     cash = isNaN(cash) ? 0 : cash;
@@ -17,6 +18,18 @@ function App() {
     dispatch({type: 'GET_CASH', payload: cash})
   }
 
+  const addCustomer = (name) => {
+    const customer = {
+      name,
+      id: `${Date.now()}x${Math.floor(Math.random() * 1000)}`,
+    }
+    dispatch({type: 'ADD_CUSTOMER', payload: customer})
+  }
+
+  const removeCustomer = (customer) => {
+    dispatch({type: 'REMOVE_CUSTOMER', payload: customer.id})
+  }
+
   return (
     <div className="App">
       <h1 style={{fontSize: "3rem"}}>
@@ -26,7 +39,32 @@ function App() {
       <div style={{display: "flex"}}>
         <button onClick={() => addCash(Number(prompt()))}>Пополнить счет</button>
         <button onClick={() => getCash(Number(prompt()))}>Снять со счета</button>
+        <button onClick={() => addCustomer(prompt())}>Добавить клиента</button>
+        <button onClick={() => getCash(Number(prompt()))}>Снять со счета</button>
       </div>
+      {customers.length > 0 ?
+        <div>
+          {customers.map(customer =>
+            <div 
+              style={{
+                fontSize: "2rem", 
+                border: "1px solid #000", 
+                padding: "5px", 
+                marginTop: "10px", 
+                cursor: "pointer"
+              }}
+              onClick={
+                () => removeCustomer(customer)}
+            >
+              {customer.name}
+            </div>
+          )}
+        </div>  
+        :
+        <div style={{fontSize:"2rem", marginTop:20}}>
+          Клиенты отсутсвуют.
+        </div>
+    }
     </div>
   );
 }
