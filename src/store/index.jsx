@@ -1,21 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { combineReducers, applyMiddleware } from 'redux';
-import { cashReducer } from './cashReducer';
-import { customersReducer } from './customersReducer';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import thunk from 'redux-thunk';
+import { applyMiddleware, combineReducers, legacy_createStore as createStore } from 'redux';
+import countReducer from './countReducer';
+import userReducer from './userReducer';
+import createSagaMiddleware from 'redux-saga';
+import { countWatcher } from '../saga/countSaga';
+
+const sagaMiddleware = createSagaMiddleware();
 
 const rootReducer = combineReducers({
-  cash: cashReducer,
-  customers: customersReducer,
-});
+  countReducer,
+  userReducer,
+})
 
-export const store = configureStore({
-  reducer: rootReducer,
-  enhancers: [applyMiddleware(thunk)],
-});
-
-/*export const store = configureStore({
-  reducer: rootReducer,
-  enhancers: [composeWithDevTools(applyMiddleware(thunk))],
-});*/
+export const store = createStore(rootReducer, applyMiddleware(sagaMiddleware))
+sagaMiddleware.run(countWatcher)
