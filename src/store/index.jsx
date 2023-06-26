@@ -1,4 +1,3 @@
-import { configureStore } from '@reduxjs/toolkit';
 import { applyMiddleware, combineReducers, legacy_createStore as createStore } from 'redux';
 import countReducer from './countReducer';
 import userReducer from './userReducer';

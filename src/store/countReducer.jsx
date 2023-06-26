@@ -4,6 +4,8 @@ const defaultState = {
 
 export const INCREMENT = 'INCREMENT'
 export const ASYNC_INCREMENT = 'ASYNC_INCREMENT'
+
+export const ASYNC_DECREMENT = 'ASYNC_DECREMENT'
 export const DECREMENT = 'DECREMENT'
 
 export default function countReducer(state = defaultState, action) {
@@ -18,4 +20,6 @@ export default function countReducer(state = defaultState, action) {
 
 export const incrementCreator = () => ({type: INCREMENT})
 export const asyncIncrementCreator = () => ({type: ASYNC_INCREMENT})
+
 export const decrementCreator = () => ({type: DECREMENT})
+export const asyncDecrementCreator = () => ({type: ASYNC_DECREMENT})
